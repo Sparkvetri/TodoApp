@@ -5,6 +5,14 @@ const Todo = () => {
     const [input, setInput] = useState('')
     const [filter, setFilter] = useState('All')
     const [count, setCount] = useState(0)
+
+    const today = new Date();
+  
+  const displayDate = today.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: '2-digit'
+  });
     
     const addTodos = ()=>{
         if (input.trim()==='') return
@@ -52,7 +60,7 @@ const Todo = () => {
         <div className="w-full md:w-64 bg-slate-900/50 p-6 border-b md:border-b-0 md:border-r border-slate-700">
           <div className="mb-8">
             <h1 className="text-2xl font-bold bg-linear-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">My Tasks</h1>
-            <p className="text-slate-500 text-sm mt-1">Apr 15, 2026</p>
+            <p className="text-slate-500 text-sm mt-1">{displayDate}</p>
           </div>
 
           <div className="space-y-6">
