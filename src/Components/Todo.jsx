@@ -35,6 +35,13 @@ const Todo = () => {
         }
     },[])
 
+    const deleteTodo = (id)=>{
+        const updateTodo = todos.filter(todo=>todo.id!==id)
+        setTodos(updateTodo)
+        localStorage.setItem('todos',JSON.stringify(updateTodo))
+        setCount(count-1)
+    }
+
     const filteredTodos = filter === 'All' ? todos : filter === 'Active' ? todos.filter(todo => !todo.completed) : todos.filter(todo => todo.completed)
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans p-4 md:p-10 flex justify-center">
@@ -122,9 +129,10 @@ const Todo = () => {
               </h2>
               <div className="space-y-3">
                 {filteredTodos.filter((task) => !task.completed).map((task, idx) => (
-                  <div key={idx} className="flex items-center gap-4 bg-slate-800/40 p-4 rounded-2xl border border-slate-700/50 hover:border-slate-600 transition-all group">
+                  <div key={idx} className="flex items-center justify-start gap-4 bg-slate-800/40 p-4 rounded-2xl border border-slate-700/50 hover:border-slate-600 transition-all group">
                     <div className="h-6 w-6 rounded-full border-2 border-slate-600 group-hover:border-indigo-500 cursor-pointer transition-colors" onClick={()=>addTocompleted(task.id)}></div>
                     <span className="text-slate-300 font-medium">{task.text}</span>
+                    <button className='p-2 bg-blue-900 rounded-2xl text-white hover:bg-blue-700 transition-colors' onClick={()=>deleteTodo(task.id)}>Delete</button>
                   </div>
                 ))}
               </div>
@@ -143,6 +151,8 @@ const Todo = () => {
                       <svg className="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
                     </div>
                     <span>{task.text}</span>
+                    <button className='p-2 bg-blue-900 rounded-2xl text-white hover:bg-blue-700 transition-colors' onClick={()=>deleteTodo(task.id)}>Delete</button>
+
                   </div>
                 ))}
               </div>
